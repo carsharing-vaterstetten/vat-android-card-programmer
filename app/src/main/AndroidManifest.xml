@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:name="de.dentrassi.vat.nfc.programmer.Application"
         android:theme="@style/Theme.VATNFCProgrammer"
-        tools:targetApi="31">
+        tools:targetApi="35">
         <activity
             android:name=".MainActivity"
             android:exported="true">
