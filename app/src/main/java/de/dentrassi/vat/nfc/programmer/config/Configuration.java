@@ -8,12 +8,21 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import de.dentrassi.vat.nfc.programmer.nfc.Keys;
+import de.dentrassi.vat.nfc.programmer.nfc.Key;
 
 public class Configuration {
 
     private final Map<String, Organization> organizations = new LinkedHashMap<>();
 
     public Configuration() {
+    }
+
+    public static @NonNull Configuration demo() {
+        final Configuration configuration = new Configuration();
+        final Organization organization = new Organization();
+        organization.setKeys(Keys.of(Key.fromString("FFEEDDCCBBAA"), Key.fromString("AABBCCDDEEFF")));
+        configuration.organizations.put("VAT", organization);
+        return configuration;
     }
 
     public @NonNull Map<String, Organization> getOrganizations() {

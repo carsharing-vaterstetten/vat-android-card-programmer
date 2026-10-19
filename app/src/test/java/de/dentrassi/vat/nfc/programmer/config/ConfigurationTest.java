@@ -9,6 +9,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.crypto.SecretKey;
 
@@ -16,6 +18,22 @@ import de.dentrassi.vat.nfc.programmer.nfc.Key;
 import de.dentrassi.vat.nfc.programmer.nfc.Keys;
 
 public class ConfigurationTest {
+
+    @Test
+    public void demoConfigurationCanBeStoredAndLoaded() throws Exception {
+        final Configuration demo = Configuration.demo();
+        final Path path = Files.createTempFile("demo-config", ".json");
+        try {
+            demo.store(path);
+            final Configuration loaded = ConfigurationStore.load(path);
+            final Keys keys = loaded.getKeysFor("VAT");
+            Assert.assertNotNull(keys);
+            Assert.assertEquals(Key.fromString("FFEEDDCCBBAA"), keys.getA());
+            Assert.assertEquals(Key.fromString("AABBCCDDEEFF"), keys.getB());
+        } finally {
+            Files.deleteIfExists(path);
+        }
+    }
 
     @Test
     public void example1() throws Exception {

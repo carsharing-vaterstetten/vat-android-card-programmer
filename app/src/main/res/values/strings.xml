@@ -4,6 +4,13 @@
     <string name="button_start_write">Write Tag</string>
     <string name="button_cancel_write">Cancel</string>
     <string name="import_configuration">Import Configuration</string>
+    <string name="clear_configuration">Clear configuration</string>
+    <string name="message_clear_configuration">This removes the saved configuration and its keys. You will need to import or create a configuration before writing tags again. Recorded cards will be kept.</string>
+    <string name="message_configuration_cleared">Configuration cleared</string>
+    <string name="error_clear_configuration_failed">Unable to clear configuration. Please try again.</string>
+    <string name="create_demo_configuration">Create Demo Configuration</string>
+    <string name="message_demo_configuration">This creates a demo configuration with public sample keys for testing. Do not use it for real access control.</string>
+    <string name="message_demo_configuration_created">Demo configuration created</string>
     <string name="key_missing">Unset</string>
     <string name="text_user">User</string>
     <string name="text_member">Member</string>

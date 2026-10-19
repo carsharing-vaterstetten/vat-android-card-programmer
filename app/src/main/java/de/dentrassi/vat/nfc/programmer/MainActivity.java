@@ -33,7 +33,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
@@ -363,6 +365,39 @@ public class MainActivity extends AppCompatActivity {
         return this.configuration != null && this.configuration.getKeysFor("VAT") != null;
     }
 
+    public void createDemoConfiguration() {
+        if (hasConfiguration()) {
+            return;
+        }
+        this.configuration = Configuration.demo();
+        this.configuration.store(getConfigPath());
+        configurationChanged();
+        Toast.makeText(this, R.string.message_demo_configuration_created, Toast.LENGTH_SHORT).show();
+    }
+
+    public void clearConfiguration() {
+        try {
+            Files.deleteIfExists(getConfigPath());
+        } catch (final IOException e) {
+            Log.w(TAG, "Failed to clear configuration", e);
+            Toast.makeText(this, R.string.error_clear_configuration_failed, Toast.LENGTH_LONG).show();
+            return;
+        }
+        this.configuration = new Configuration();
+        configurationChanged();
+        Toast.makeText(this, R.string.message_configuration_cleared, Toast.LENGTH_SHORT).show();
+    }
+
+    private void configurationChanged() {
+        if (this.configTab != null && this.configTab.isAdded()) {
+            this.configTab.configChanged();
+        }
+        if (this.mainTab != null && this.mainTab.isAdded()) {
+            this.mainTab.configChanged();
+        }
+        checkConfiguration();
+    }
+
     public void importConfig(final String password) {
         final SharedPreferences prefs = getSharedPreferences("ImportPassword", Context.MODE_PRIVATE);
 
@@ -406,8 +441,7 @@ public class MainActivity extends AppCompatActivity {
             this.configuration.store(getConfigPath());
 
             Toast.makeText(this, R.string.message_configuration_imported, Toast.LENGTH_SHORT).show();
-            this.configTab.configChanged();
-            this.mainTab.configChanged();
+            configurationChanged();
         } catch (final Exception e) {
             Log.w(TAG, "Failed to import configuration", e);
 
