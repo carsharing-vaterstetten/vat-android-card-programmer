@@ -19,3 +19,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Gson reflects over these fields; their names and map types are the configuration file format.
+-keepattributes Signature
+-keep,allowoptimization class de.dentrassi.vat.nfc.programmer.config.Configuration {
+    <fields>;
+    <init>(...);
+}
+-keep,allowoptimization class de.dentrassi.vat.nfc.programmer.config.Organization {
+    <fields>;
+    <init>(...);
+}
+-keep,allowoptimization class de.dentrassi.vat.nfc.programmer.nfc.Keys {
+    <fields>;
+    <init>(...);
+}

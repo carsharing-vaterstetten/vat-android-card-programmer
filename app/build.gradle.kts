@@ -10,15 +10,16 @@ android {
         applicationId = "de.dentrassi.vat.nfc.programmer"
         minSdk = 29
         targetSdk = 36
-        versionCode = 340
-        versionName = "0.3.4"
+        versionCode = 350
+        versionName = "0.3.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
